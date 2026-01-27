@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="Tafera.Api/Tafera.Api.csproj" />
+    <Project Path="Tafera.Application/Tafera.Application.csproj" />
+    <Project Path="Tafera.Domain/Tafera.Domain.csproj" />
+  </Folder>
+</Solution>
