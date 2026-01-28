@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tafera.Domain\Tafera.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
