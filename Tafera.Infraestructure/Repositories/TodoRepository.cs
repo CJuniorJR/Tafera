@@ -45,4 +45,11 @@ public class TodoRepository : ITodoRepository
 
         await _context.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task<IEnumerable<TodoItem>> GetAllAsync(CancellationToken cancellationToken)
+    {
+        return await _context.TodoItem
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
+    }
 }

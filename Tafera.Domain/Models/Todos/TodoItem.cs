@@ -24,10 +24,11 @@ public class TodoItem : Entity<Guid>
         SetUpdated();
     }
 
-    public void UpdateDetails(string title, string description)
+    public void UpdateDetails(string title, string description, Priority priority)
     {
         Title = title;
         Description = description;
+        Priority = priority;
         SetUpdated();
     }
 }

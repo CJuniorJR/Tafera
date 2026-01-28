@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tafera.Application.Interfaces;
-using Tafera.Application.Todos;
 using Tafera.Domain.Models.Todos;
 
 namespace Tafera.Api.Controllers;
@@ -16,8 +15,6 @@ public class TodoController : Controller
         _todoItemService = todoItemService;
     }
 
-    public TodoItemsMockList TodoItemsMock = new TodoItemsMockList();
-
     [HttpGet("hello-world")]
     public string GetHelloWorld()
     {
@@ -25,9 +22,9 @@ public class TodoController : Controller
     }
 
     [HttpGet()]
-    public List<TodoItem> GetTodoItems() 
+    public async Task<IEnumerable<TodoItem?>> GetTodoItems(CancellationToken cancellationToken)
     {
-        return TodoItemsMock.GetTodoItemsMockList();
+        return await _todoItemService.GetAllTodoItemsAsync(cancellationToken);
     }
 
     [HttpGet("{id:guid}")]
@@ -40,7 +37,15 @@ public class TodoController : Controller
     public async Task<Guid> CreateTodoItem(string title, string description, Priority priority, CancellationToken cancellationToken)
     {
         var result = await _todoItemService.CreateTodoItemAsync(title, description, priority, cancellationToken);
-        
+
+        return result;
+    }
+
+    [HttpPut("update/{id:guid}")]
+    public async Task<Guid> UpdateTodoItem(Guid id, string title, string description, Priority priority, CancellationToken cancellationToken)
+    {
+        var result = await _todoItemService.UpdateTodoItemAsync(id, title, description, priority, cancellationToken);
+
         return result;
     }
 }
