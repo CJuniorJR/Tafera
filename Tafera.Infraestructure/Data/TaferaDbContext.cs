@@ -8,7 +8,7 @@ public class TaferaDbContext : DbContext
     public TaferaDbContext(DbContextOptions<TaferaDbContext> options)
         : base(options) { }
 
-    public DbSet<TodoItem> Todos => Set<TodoItem>();
+    public DbSet<TodoItem> TodoItem => Set<TodoItem>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

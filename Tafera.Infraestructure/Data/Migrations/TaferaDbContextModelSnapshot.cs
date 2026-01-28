@@ -8,7 +8,7 @@ using Tafera.Infraestructure.Data;
 
 #nullable disable
 
-namespace Tafera.Infraestructure.Migrations
+namespace Tafera.Infraestructure.Data.Migrations
 {
     [DbContext(typeof(TaferaDbContext))]
     partial class TaferaDbContextModelSnapshot : ModelSnapshot
@@ -53,7 +53,7 @@ namespace Tafera.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Todos");
+                    b.ToTable("TodoItem");
                 });
 #pragma warning restore 612, 618
         }

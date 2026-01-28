@@ -9,10 +9,10 @@ using Tafera.Infraestructure.Data;
 
 #nullable disable
 
-namespace Tafera.Infraestructure.Migrations
+namespace Tafera.Infraestructure.Data.Migrations
 {
     [DbContext(typeof(TaferaDbContext))]
-    [Migration("20260128143309_InitialCreate")]
+    [Migration("20260128152353_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -56,7 +56,7 @@ namespace Tafera.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Todos");
+                    b.ToTable("TodoItem");
                 });
 #pragma warning restore 612, 618
         }

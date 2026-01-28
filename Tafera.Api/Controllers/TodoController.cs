@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tafera.Application.Interfaces;
 using Tafera.Application.Todos;
 using Tafera.Domain.Models.Todos;
 
@@ -8,14 +9,14 @@ namespace Tafera.Api.Controllers;
 [Route("api/todo")]
 public class TodoController : Controller
 {
-    public TodoItemsMockList TodoItemsMock = new TodoItemsMockList();
+    private readonly ITodoItemService _todoItemService;
 
-    public List<TodoItem> TodoItems;
-
-    public TodoController()
+    public TodoController(ITodoItemService todoItemService)
     {
-        TodoItems = TodoItemsMock.GetTodoItemsMockList();
+        _todoItemService = todoItemService;
     }
+
+    public TodoItemsMockList TodoItemsMock = new TodoItemsMockList();
 
     [HttpGet("hello-world")]
     public string GetHelloWorld()
@@ -26,20 +27,20 @@ public class TodoController : Controller
     [HttpGet()]
     public List<TodoItem> GetTodoItems() 
     {
-        return TodoItems;
+        return TodoItemsMock.GetTodoItemsMockList();
     }
 
     [HttpGet("{id:guid}")]
     public TodoItem GetTodoItem(Guid id)
     {
-        return TodoItems.First(t => t.Id == id);
+        return TodoItemsMock.GetTodoItemsMockList().First(t => t.Id == id);
     }
 
     [HttpPost("create")]
-    public TodoItem CreateTodoItem(string title, string description, Priority priority)
+    public async Task<Guid> CreateTodoItem(string title, string description, Priority priority, CancellationToken cancellationToken)
     {
-        var todoItem = new TodoItem(title, description, priority);
-        TodoItems.Add(todoItem);
-        return todoItem;
+        var result = await _todoItemService.CreateTodoItemAsync(title, description, priority, cancellationToken);
+        
+        return result;
     }
 }
