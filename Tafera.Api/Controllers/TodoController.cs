@@ -15,37 +15,43 @@ public class TodoController : Controller
         _todoItemService = todoItemService;
     }
 
-    [HttpGet("hello-world")]
-    public string GetHelloWorld()
-    {
-        return "Hello World";
-    }
-
     [HttpGet()]
-    public async Task<IEnumerable<TodoItem?>> GetTodoItems(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetTodoItems(CancellationToken cancellationToken)
     {
-        return await _todoItemService.GetAllTodoItemsAsync(cancellationToken);
+        var todoItems = await _todoItemService.GetAllTodoItemsAsync(cancellationToken);
+
+        return Ok(todoItems);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<TodoItem?> GetTodoItem(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetTodoItem(Guid id, CancellationToken cancellationToken)
     {
-        return await _todoItemService.GetTodoItemByIdAsync(id, cancellationToken);
+        var todoItem = await _todoItemService.GetTodoItemByIdAsync(id, cancellationToken);
+
+        if (todoItem is null)
+            return NotFound();
+
+        return Ok(todoItem);
     }
 
     [HttpPost("create")]
-    public async Task<Guid> CreateTodoItem(string title, string description, Priority priority, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateTodoItem(string title, string description, Priority priority, CancellationToken cancellationToken)
     {
         var result = await _todoItemService.CreateTodoItemAsync(title, description, priority, cancellationToken);
 
-        return result;
+        return CreatedAtAction(nameof(GetTodoItem),
+            new { result },
+            null);
     }
 
     [HttpPut("update/{id:guid}")]
-    public async Task<Guid> UpdateTodoItem(Guid id, string title, string description, Priority priority, CancellationToken cancellationToken)
+    public async Task<IActionResult> UpdateTodoItem(Guid id, string title, string description, Priority priority, CancellationToken cancellationToken)
     {
         var result = await _todoItemService.UpdateTodoItemAsync(id, title, description, priority, cancellationToken);
 
-        return result;
+        if (!result)
+            return NotFound();
+
+        return NoContent();
     }
 }

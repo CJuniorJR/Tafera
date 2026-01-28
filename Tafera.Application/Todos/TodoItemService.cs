@@ -30,19 +30,17 @@ public class TodoItemService : ITodoItemService
         return await _todoRepository.GetAllAsync(cancellationToken);
     }
 
-    public async Task<Guid> UpdateTodoItemAsync(Guid id, string title, string description, Priority priority, CancellationToken cancellationToken)
+    public async Task<bool> UpdateTodoItemAsync(Guid id, string title, string description, Priority priority, CancellationToken cancellationToken)
     {
         var todoItem = await _todoRepository.GetByIdAsync(id, cancellationToken);
 
         if (todoItem == null)
-        {
-            throw new KeyNotFoundException($"Todo item with ID {id} not found.");
-        }
+            return false;
 
         todoItem.UpdateDetails(title, description, priority);
 
         await _todoRepository.UpdateAsync(todoItem, cancellationToken);
 
-        return todoItem.Id;
+        return true;
     }
 }
