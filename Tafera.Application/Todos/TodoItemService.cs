@@ -19,4 +19,9 @@ public class TodoItemService : ITodoItemService
 
         return todoItem.Id;
     }
+
+    public async Task<TodoItem?> GetTodoItemByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return await _todoRepository.GetByIdAsync(id, cancellationToken);
+    }
 }

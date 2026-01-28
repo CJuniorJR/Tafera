@@ -31,9 +31,9 @@ public class TodoController : Controller
     }
 
     [HttpGet("{id:guid}")]
-    public TodoItem GetTodoItem(Guid id)
+    public async Task<TodoItem?> GetTodoItem(Guid id, CancellationToken cancellationToken)
     {
-        return TodoItemsMock.GetTodoItemsMockList().First(t => t.Id == id);
+        return await _todoItemService.GetTodoItemByIdAsync(id, cancellationToken);
     }
 
     [HttpPost("create")]
