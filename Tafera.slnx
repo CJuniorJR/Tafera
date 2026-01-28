@@ -3,5 +3,6 @@
     <Project Path="Tafera.Api/Tafera.Api.csproj" />
     <Project Path="Tafera.Application/Tafera.Application.csproj" />
     <Project Path="Tafera.Domain/Tafera.Domain.csproj" />
+    <Project Path="Tafera.Infraestructure/Tafera.Infraestructure.csproj" Id="5a0f108b-681f-4f32-b46c-a8d24854a707" />
   </Folder>
 </Solution>
