@@ -6,12 +6,12 @@ using Tafera.Domain.Models.Todos;
 namespace Tafera.Api.Controllers;
 
 [ApiController]
-[Route("api/todo")]
-public class TodoController : Controller
+[Route("api/todos")]
+public class TodosController : Controller
 {
     private readonly ITodoItemService _todoItemService;
 
-    public TodoController(ITodoItemService todoItemService)
+    public TodosController(ITodoItemService todoItemService)
     {
         _todoItemService = todoItemService;
     }
