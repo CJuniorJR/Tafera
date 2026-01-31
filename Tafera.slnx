@@ -5,4 +5,8 @@
     <Project Path="Tafera.Domain/Tafera.Domain.csproj" />
     <Project Path="Tafera.Infraestructure/Tafera.Infraestructure.csproj" Id="5a0f108b-681f-4f32-b46c-a8d24854a707" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="Tafera.IntegrationTests/Tafera.IntegrationTests.csproj" />
+    <Project Path="Tafera.UnitTests/Tafera.UnitTests.csproj" />
+  </Folder>
 </Solution>
