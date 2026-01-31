@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tafera.Api.Contracts.Todos;
 using Tafera.Application.Interfaces;
 using Tafera.Domain.Models.Todos;
 
@@ -35,12 +36,12 @@ public class TodoController : Controller
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> CreateTodoItem(string title, string description, Priority priority, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateTodoItem([FromBody] CreateTodoItemRequest request, CancellationToken cancellationToken)
     {
-        var result = await _todoItemService.CreateTodoItemAsync(title, description, priority, cancellationToken);
+        var id = await _todoItemService.CreateTodoItemAsync(request.Title, request.Description, request.Priority, cancellationToken);
 
         return CreatedAtAction(nameof(GetTodoItem),
-            new { result },
+            new { id },
             null);
     }
 

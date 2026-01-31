@@ -1,3 +1,4 @@
+using Tafera.Api.Validators;
 using Tafera.Application;
 using Tafera.Infraestructure;
 
@@ -12,7 +13,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddInfrastructure(builder.Configuration)
-    .AddApplication();
+    .AddApplication()
+    .AddValidations();
 
 var app = builder.Build();
 
