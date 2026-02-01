@@ -17,6 +17,7 @@ public class TaferaDbContext : DbContext
         modelBuilder.Entity<TodoItem>(entity =>
         {
             entity.HasKey(t => t.Id);
+            entity.Property(t => t.Id).ValueGeneratedNever();
 
             entity.Property(t => t.Title)
                   .IsRequired()
