@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Mvc;
 using Tafera.Api.Contracts.Todos;
 using Tafera.Application.Interfaces;
 using Tafera.Domain.Models.Todos;
@@ -21,7 +22,24 @@ public class TodosController : Controller
     {
         var todoItems = await _todoItemService.GetAllTodoItemsAsync(cancellationToken);
 
-        return Ok(todoItems);
+        var todoItemResponse = new List<GetTodoItemResponse>();
+
+        if (todoItems != null)
+        {
+            foreach (var item in todoItems)
+            {
+                todoItemResponse.Add(new GetTodoItemResponse(
+                    item.Id,
+                    item.Title,
+                    item.Description,
+                    item.IsCompleted,
+                    item.Priority,
+                    item.CreatedAt,
+                    item.UpdatedAt));
+            }
+        }
+
+        return Ok(todoItemResponse);
     }
 
     [HttpGet("{id:guid}")]
@@ -32,7 +50,16 @@ public class TodosController : Controller
         if (todoItem is null)
             return NotFound();
 
-        return Ok(todoItem);
+        var todoItemResponse = new GetTodoItemResponse(
+            todoItem!.Id,
+            todoItem.Title,
+            todoItem.Description,
+            todoItem.IsCompleted,
+            todoItem.Priority,
+            todoItem.CreatedAt,
+            todoItem.UpdatedAt);
+
+        return Ok(todoItemResponse);
     }
 
     [HttpPost("create")]
