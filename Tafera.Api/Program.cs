@@ -16,6 +16,8 @@ builder.Services
     .AddApplication()
     .AddValidations();
 
+builder.Logging.AddConsole();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

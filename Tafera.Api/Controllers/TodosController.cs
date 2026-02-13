@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Tafera.Api.Contracts.Todos;
 using Tafera.Application.Interfaces;
 using Tafera.Domain.Models.Todos;
